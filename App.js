@@ -1,19 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import configureStore from './store';
+import { Provider } from 'react-redux';
+import Home from './Home';
+import foodForm from './foodForm';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
+
+const store=configureStore();
+const ReduxData=()=>{
+  return(
+  <Provider store={store}>
+   <AppContainer/>
+  </Provider>)
+}
+
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <ReduxData/>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+
+const AppSwitchNav = createSwitchNavigator({
+  Home: { screen: Home },
+  foodForm: { screen: foodForm },
 });
+
+const AppContainer = createAppContainer(AppSwitchNav);
+
+
+
+
